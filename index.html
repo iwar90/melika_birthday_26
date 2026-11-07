@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP SECRET: Operation Birthday</title>
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --panel-bg: #1a1a1a;
+            --text-main: #e0e0e0;
+            --accent-purple: #8a2be2;
+            --accent-purple-glow: rgba(138, 43, 226, 0.4);
+            --accent-red: #ff3333;
+            --font-mono: 'Courier New', Courier, monospace;
+            --font-sans: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .mono {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        /* --- Landing Page --- */
+        #landing-page {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out;
+        }
+
+        .glitch {
+            font-size: 3rem;
+            color: var(--accent-red);
+            text-shadow: 2px 0 var(--accent-purple), -2px 0 cyan;
+            margin-bottom: 2rem;
+            text-align: center;
+            padding: 0 1rem;
+            animation: glitch-anim 1.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: skewX(0deg); }
+            5% { transform: skewX(2deg); }
+            10% { transform: skewX(0deg); }
+            15% { transform: skewX(-2deg); }
+            20% { transform: skewX(0deg); }
+            100% { transform: skewX(0deg); }
+        }
+
+        .btn {
+            background: transparent;
+            color: var(--accent-purple);
+            border: 2px solid var(--accent-purple);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn:hover {
+            background: var(--accent-purple);
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-purple-glow);
+        }
+
+        .btn-red {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .btn-red:hover {
+            background: var(--accent-red);
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+        }
+
+        /* --- Main Content --- */
+        #main-content {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        header {
+            border-bottom: 2px solid var(--accent-purple);
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .alert-bar {
+            background: var(--accent-red);
+            color: white;
+            font-family: var(--font-mono);
+            text-align: center;
+            padding: 5px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 2rem;
+        }
+
+        section {
+            background: var(--panel-bg);
+            border-left: 4px solid var(--accent-purple);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        section h2 {
+            color: var(--accent-purple);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        section h2::before {
+            content: '[FILE]';
+            font-size: 1rem;
+            margin-right: 10px;
+            color: var(--accent-red);
+        }
+
+        /* Profile Section */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .profile-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: url('https://via.placeholder.com/300/1a1a1a/8a2be2?text=NO+PHOTO+ON+FILE') center/cover;
+            border: 2px dashed var(--accent-purple);
+            filter: grayscale(100%) contrast(120%);
+        }
+
+        .data-row {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .data-label {
+            color: var(--accent-purple);
+            font-family: var(--font-mono);
+            font-weight: bold;
+        }
+
+        /* Crimes Section */
+        .crime-list {
+            list-style: none;
+        }
+
+        .crime-list li {
+            padding: 1rem;
+            background: #111;
+            margin-bottom: 1rem;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .stamp {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--accent-red);
+            border: 2px solid var(--accent-red);
+            padding: 2px 10px;
+            font-family: var(--font-mono);
+            font-weight: bold;
+            transform: rotate(-15deg);
+            opacity: 0.7;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-box {
+            background: #111;
+            padding: 1.5rem;
+            border-top: 3px solid var(--accent-purple);
+        }
+
+        .counter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-red);
+            font-family: var(--font-mono);
+            margin: 10px 0;
+        }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            filter: sepia(40%) hue-rotate(250deg);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: none;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 10px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Quiz Section */
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        .quiz-question.active {
+            display: block;
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        .quiz-options label {
+            display: block;
+            padding: 10px;
+            background: #111;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border: 1px solid #333;
+            transition: all 0.2s;
+        }
+
+        .quiz-options label:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .quiz-options input {
+            margin-right: 10px;
+        }
+
+        #quiz-result {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: #111;
+            border-left: 4px solid var(--accent-red);
+            font-family: var(--font-mono);
+        }
+
+        /* Heartfelt Message */
+        #final-message-container {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            border: 1px solid var(--accent-purple);
+            margin-top: 3rem;
+            animation: fadeIn 2s forwards;
+        }
+
+        #final-message-container h2 {
+            color: #fff;
+            justify-content: center;
+        }
+        
+        #final-message-container h2::before {
+            display: none;
+        }
+
+        .heartfelt-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-grid { grid-template-columns: 1fr; }
+            .glitch { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Landing Page -->
+    <div id="landing-page">
+        <div class="glitch">TOP SECRET: CASE #BDAY-001</div>
+        <p class="mono" style="margin-bottom: 2rem; color: #888;">UNAUTHORIZED ACCESS IS STRICTLY ENCOURAGED.</p>
+        <button class="btn" onclick="grantAccess()">Enter Database</button>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <div class="alert-bar">CLASSIFIED INTEL - EYES ONLY</div>
+        
+        <header>
+            <h1 class="glitch" style="font-size: 2rem; margin-bottom: 10px;">Subject Investigation Report</h1>
+            <p class="mono">Date compiled: Current Year | Clearance level: Best Friend</p>
+        </header>
+
+        <!-- Personnel File -->
+        <section id="profile">
+            <h2>Personnel File</h2>
+            <div class="profile-grid">
+                <div class="profile-img">
+                    <!-- Replace background URL in CSS or add img tag here for a real photo -->
+                </div>
+                <div class="profile-data">
+                    <div class="data-row">
+                        <span class="data-label">NAME:</span> [Insert Friend's Name]
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">ALIAS:</span> "The Procrastinator" / "[Insert Funny Nickname]"
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">AGE:</span> [Insert Age] (Looks 12, acts 85)
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">KNOWN STRENGTHS:</span> Ability to sleep through multiple alarms, ordering takeout, making plans and immediately regretting them.
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">KNOWN WEAKNESSES:</span> Basic spatial awareness, resisting impulse purchases, replying to texts in under 3 business days.
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">THREAT LEVEL:</span> Catastrophic (if uncaffeinated).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Criminal Record -->
+        <section id="crimes">
+            <h2>Incident Logs & Rap Sheet</h2>
+            <ul class="crime-list">
+                <li>
+                    <strong>First-Degree Ghosting:</strong> Repeatedly opening messages in the group chat and responding mentally, but never physically typing a reply.
+                    <div class="stamp">GUILTY</div>
+                </li>
+                <li>
+                    <strong>Serial Accessory to Terrible Ideas:</strong> Always being the first to say "Yeah, let's do it" to plans that clearly shouldn't be done.
+                    <div class="stamp">CONFIRMED</div>
+                </li>
+                <li>
+                    <strong>Aggravated Assault on Patience:</strong> Taking exactly 45 minutes to get ready after claiming "I'm 5 minutes away."
+                    <div class="stamp">REPEAT OFFENDER</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Stats Counter -->
+        <section id="stats">
+            <h2>Annual Biometric Telemetry</h2>
+            <p class="mono" style="margin-bottom: 1rem; color: #888;">*Data gathered via highly illegal surveillance.</p>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="data-label">HOURS WASTED SCROLLING</div>
+                    <div class="counter" data-target="42069">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="data-label">DELUSIONAL "I'LL FIX MY SLEEP SCHEDULE" CLAIMS</div>
+                    <div class="counter" data-target="365">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="data-label">UNFINISHED SIDE PROJECTS</div>
+                    <div class="counter" data-target="404">0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery -->
+        <section id="gallery">
+            <h2>Surveillance Footage</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/1a1a1a/8a2be2?text=EVIDENCE+A" alt="Placeholder 1">
+                    <div class="caption">Subject caught mid-yawn looking like a gargoyle.</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/1a1a1a/ff3333?text=EVIDENCE+B" alt="Placeholder 2">
+                    <div class="caption">Questionable fashion choice (Circa 2021).</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/1a1a1a/8a2be2?text=EVIDENCE+C" alt="Placeholder 3">
+                    <div class="caption">Subject attempting to cook. Disaster ensued.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personality Quiz -->
+        <section id="quiz">
+            <h2>Psychological Assessment</h2>
+            <p style="margin-bottom: 1rem;">Complete the following protocol to verify subject identity.</p>
+            
+            <div id="quiz-container">
+                <div class="quiz-question active" id="q1">
+                    <div class="data-label">1. What is the subject's primary defense mechanism?</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q1" value="a"> A) Deflecting with ill-timed sarcasm.</label>
+                        <label><input type="radio" name="q1" value="b"> B) Physically fleeing the room.</label>
+                        <label><input type="radio" name="q1" value="c"> C) Unwarranted, dangerous levels of confidence.</label>
+                    </div>
+                    <button class="btn" style="padding: 10px 20px; font-size: 1rem;" onclick="nextQuestion(1)">Next</button>
+                </div>
+
+                <div class="quiz-question" id="q2">
+                    <div class="data-label">2. If left unsupervised, the subject will most likely:</div>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="q2" value="a"> A) Start a new hobby and quit 2 days later.</label>
+                        <label><input type="radio" name="q2" value="b"> B) Re-watch a TV show for the 14th time.</label>
+                        <label><input type="radio" name="q2" value="c"> C) Somehow injure themselves while standing still.</label>
+                    </div>
+                    <button class="btn" style="padding: 10px 20px; font-size: 1rem;" onclick="submitQuiz()">Analyze Results</button>
+                </div>
+            </div>
+
+            <div id="quiz-result">
+                <h3>ANALYSIS COMPLETE</h3>
+                <p id="quiz-output">...</p>
+                <button class="btn btn-red" style="margin-top: 1rem;" onclick="revealFinal()">DECRYPT FINAL FILE</button>
+            </div>
+        </section>
+
+        <!-- Final Message -->
+        <div id="final-message-container">
+            <h2>FILE DECRYPTED</h2>
+            <div class="heartfelt-text">
+                Jokes and highly illegal surveillance aside... Happy Birthday! 🎉<br><br>
+                Even though you're a menace to society and my patience, I wouldn't trade our friendship for anything. You're one of the most genuine, loyal, and incredible people I know. Thanks for always being there through the chaos, the terrible ideas, and the great times. <br><br>
+                Here's to another year of surviving our own questionable decisions together. Have an amazing day!
+            </div>
+            <p class="mono" style="color: var(--accent-red);">> TRANSMISSION ENDED.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. Landing Page Logic
+        function grantAccess() {
+            const landing = document.getElementById('landing-page');
+            const main = document.getElementById('main-content');
+            
+            landing.style.opacity = '0';
+            setTimeout(() => {
+                landing.style.display = 'none';
+                main.style.display = 'block';
+                window.scrollTo(0,0);
+                initCounters();
+            }, 1000);
+        }
+
+        // 2. Stats Counter Logic
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = +entry.target.getAttribute('data-target');
+                        let count = 0;
+                        const speed = target / 50; // Adjust for speed
+                        
+                        const updateCount = () => {
+                            if (count < target) {
+                                count += speed;
+                                entry.target.innerText = Math.ceil(count);
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                entry.target.innerText = target;
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // 3. Quiz Logic
+        function nextQuestion(current) {
+            const selected = document.querySelector(`input[name="q${current}"]:checked`);
+            if (!selected) {
+                alert("ERROR: Input required to proceed.");
+                return;
+            }
+            document.getElementById(`q${current}`).classList.remove('active');
+            document.getElementById(`q${current + 1}`).classList.add('active');
+        }
+
+        function submitQuiz() {
+            const selected = document.querySelector('input[name="q2"]:checked');
+            if (!selected) {
+                alert("ERROR: Input required to proceed.");
+                return;
+            }
+            
+            document.getElementById('q2').classList.remove('active');
+            const resultDiv = document.getElementById('quiz-result');
+            const outputText = document.getElementById('quiz-output');
+            
+            resultDiv.style.display = 'block';
+            outputText.innerHTML = "Subject identity verified with 99.9% accuracy. Diagnosis: Chronically goofy but highly valued associate.";
+        }
+
+        // 4. Reveal Final Message
+        function revealFinal() {
+            const finalDiv = document.getElementById('final-message-container');
+            finalDiv.style.display = 'block';
+            setTimeout(() => {
+                finalDiv.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
