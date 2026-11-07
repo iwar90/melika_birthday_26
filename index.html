@@ -1153,20 +1153,6 @@
           linear-gradient(135deg, #382343, #0a090d);
       }
 
-      .modal-art::before {
-        content: "YOUR PHOTO HERE";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        padding: 0.8rem 1rem;
-        border: 1px dashed rgba(255, 255, 255, 0.28);
-        color: rgba(255, 255, 255, 0.52);
-        font-family: monospace;
-        font-size: 0.65rem;
-        letter-spacing: 0.13em;
-        transform: translate(-50%, -50%);
-      }
-
       .modal-copy {
         padding: 1.4rem 1.5rem;
       }
@@ -1513,17 +1499,16 @@
             </button>
           </div>
         </div>
-        <div class="hero-side" aria-label="Redacted subject portrait placeholder">
-          <div class="scan-line"></div>
-          <div class="silhouette"></div>
-          <div class="target"></div>
-          <div class="hero-side-info">
+        <div class="hero-side" style="background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.92)), url('images/hero1.jpg') center/cover;" aria-label="Classified subject photo">
+            <div class="scan-line"></div>
+            <div class="target"></div>
+            <div class="hero-side-info">
             <span class="stamp">Highly suspicious</span>
             <p class="micro-label" style="margin-top: 1.2rem">
               Visual match: 99.8% &nbsp; // &nbsp; Alibi: weak
             </p>
-          </div>
         </div>
+</div>
       </section>
 
       <section class="section" id="profile">
@@ -1539,17 +1524,8 @@
         </div>
 
         <article class="profile-grid reveal">
-          <div class="profile-image">
+          <div class="profile-image" style="background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.85)), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 32px), url('images/hero2.jpg') center/cover;">
             <div class="mug-lines"></div>
-            <div class="photo-placeholder">
-              <div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                  <path d="M4 7h3l1.5-2h7L17 7h3v12H4V7Z" stroke-width="1.4" />
-                  <circle cx="12" cy="13" r="3.5" stroke-width="1.4" />
-                </svg>
-                <span>Replace with subject photo</span>
-              </div>
-            </div>
             <span class="stamp">Do not trust before coffee</span>
           </div>
           <div class="profile-data">
@@ -1702,24 +1678,24 @@
         </div>
 
         <div class="gallery-grid reveal">
-          <button class="gallery-card" style="--card-color: #7c3aed" data-caption="The night nobody remembers clearly" data-detail="Witnesses confirm it was a great idea at the time." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #7c3aed" data-caption="The incident that should've stayed buried" type="button">
+            <img src="images/tel1.jpg" alt="Exhibit A photo" class="placeholder-art" style="object-fit: cover; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Exhibit A</span><strong>The incident that should've stayed buried</strong></span>
           </button>
-          <button class="gallery-card" style="--card-color: #be123c" data-caption="Main-character behavior detected" data-detail="Confidence levels exceeded all locally permitted limits." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #be123c" data-caption="Main-character behavior detected" type="button">
+            <img src="images/tel4.jpg" alt="Exhibit B photo" class="placeholder-art" style="object-fit: cover; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Exhibit B</span><strong>Main-character behavior detected</strong></span>
           </button>
-          <button class="gallery-card" style="--card-color: #9333ea" data-caption="Moments before the incident" data-detail="No further questions. Counsel has advised silence." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #9333ea" data-caption="Moments before the incident" type="button">
+            <img src="images/tel2.jpg" alt="Exhibit C photo" class="placeholder-art" style="object-fit: cover; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Exhibit C</span><strong>Moments before the incident</strong></span>
           </button>
-          <button class="gallery-card" style="--card-color: #e11d48" data-caption="An extremely convincing alibi" data-detail="Forensic analysis found the story creative but structurally unsound." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #e11d48" data-caption="Evidence of suspicious silence" type="button">
+            <img src="images/tel3.jpg" alt="Exhibit D photo" class="placeholder-art" style="object-fit: cover; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Exhibit D</span><strong>Evidence of suspicious silence</strong></span>
           </button>
-          <button class="gallery-card" style="--card-color: #6d28d9" data-caption="Still somehow photogenic" data-detail="Investigators are annoyed but impressed." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #6d28d9" data-caption="The conversation nobody consented to" type="button">
+            <img src="images/tel5.jpg" alt="Exhibit E photo" class="placeholder-art" style="object-fit: cover; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Exhibit E</span><strong>The conversation nobody consented to</strong></span>
           </button>
         </div>
@@ -1737,20 +1713,20 @@
         </div>
 
         <div class="gallery-grid reveal">
-          <button class="gallery-card" style="--card-color: #ec4899" data-caption="The Enabler" data-detail="Notorious for saying 'you only live once' before terrible decisions." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #ec4899" data-caption="The Enforcer" type="button">
+            <img src="images/hana.jpg" alt="Photo of The Enforcer" class="placeholder-art" style="object-fit: contain; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Suspect 01</span><strong>The Enforcer</strong></span>
           </button>
-          <button class="gallery-card" style="--card-color: #3b82f6" data-caption="The Getaway Driver" data-detail="Always ready to leave the party at exactly 9:45 PM." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #3b82f6" data-caption="The Master of Disguise" type="button">
+            <img src="images/lucy.jpg" alt="Photo of The Master of Disguise" class="placeholder-art" style="object-fit: contain; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Suspect 02</span><strong>The Master of Disguise</strong></span>
           </button>
-          <button class="gallery-card" style="--card-color: #10b981" data-caption="The Alibi" data-detail="Will swear they were studying together. Has not seen a book since 2019." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #10b981" data-caption="The Voice of Reason" type="button">
+            <img src="images/nana.jpg" alt="Photo of The Voice of Reason" class="placeholder-art" style="object-fit: contain; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Suspect 03</span><strong>The Voice of Reason</strong></span>
           </button>
-          <button class="gallery-card" style="--card-color: #f59e0b" data-caption="The Voice of Reason" data-detail="Usually ignored, but kept around for plausible deniability." type="button">
-            <span class="placeholder-art"></span>
+          <button class="gallery-card" style="--card-color: #f59e0b" data-caption="The Chaos Agent" type="button">
+            <img src="images/gerdoo.jpg" alt="Photo of The Chaos Agent" class="placeholder-art" style="object-fit: contain; width: 100%; height: 100%;">
             <span class="gallery-caption"><span>Suspect 04</span><strong>The Chaos Agent</strong></span>
           </button>
         </div>
@@ -1825,7 +1801,9 @@
     <div class="modal" id="photoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-card">
         <button class="modal-close" id="modalClose" type="button" aria-label="Close evidence">×</button>
-        <div class="modal-art"></div>
+        <div class="modal-art">
+            <img id="modalImage" src="" alt="Enlarged evidence" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
         <div class="modal-copy">
           <h3 id="modalTitle">Evidence title</h3>
           <p id="modalDetail">Evidence detail</p>
@@ -1918,11 +1896,13 @@
         lastFocused?.focus();
       }
 
+      const modalImage = document.getElementById("modalImage");
       document.querySelectorAll(".gallery-card").forEach((card) => {
         card.addEventListener("click", () => {
           lastFocused = card;
           modalTitle.textContent = card.dataset.caption;
           modalDetail.textContent = card.dataset.detail;
+          modalImage.src = card.querySelector("img")?.src || "";
           modal.classList.add("open");
           document.body.classList.add("locked");
           modalClose.focus();
